@@ -28,7 +28,7 @@ namespace ShareDig
             return shares;
         }
 
-        //dodać metodę z szukaniem podmontowanych share'ów na innych kompach
+        
 
         public Dictionary<string, string> GetShares(ConnectionOptions conn)
         {
