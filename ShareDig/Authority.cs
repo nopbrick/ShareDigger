@@ -1,16 +1,17 @@
 ﻿using System.Management;
+using System.Security;
 
 namespace ShareDig
 {
     class Authority
     {
-        public static ConnectionOptions GetAuthority(string userString)
+        public static ConnectionOptions GetAuthority(string userName, SecureString password)
         {
             ConnectionOptions conn = new ConnectionOptions();
             conn.EnablePrivileges = true;
             conn.Impersonation = ImpersonationLevel.Impersonate;
-            conn.Username = userString.Substring(0, userString.IndexOf(':'));
-            conn.Password = userString.Substring(userString.IndexOf(':') + 1);
+            conn.Username = userName;
+            conn.SecurePassword = password;
             return conn;          
         }
 

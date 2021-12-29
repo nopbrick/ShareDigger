@@ -5,16 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management;
 using System.IO;
+using System.Security;
 
 namespace ShareDig
 {
     class Digger : Authority
     {
-        public delegate ConnectionOptions GetAuth(string connectionString);
-        public delegate ConnectionOptions GetAuthNoParams();
-        public GetAuth auth = GetAuthority;
-        public GetAuthNoParams authNoParams = GetAuthority;
-        public Dictionary<string,string> GetShares(string machineName, ConnectionOptions conn)
+        public static Dictionary<string,string> GetShares(string machineName, ConnectionOptions conn)
         {
             Dictionary<string,string> shares = new Dictionary<string, string>();
             ManagementScope scope = new ManagementScope("\\\\" + machineName + "\\" + "root\\CIMV2", conn);
@@ -29,8 +26,7 @@ namespace ShareDig
         }
 
         
-
-        public Dictionary<string, string> GetShares(ConnectionOptions conn)
+        public static Dictionary<string, string> GetShares(ConnectionOptions conn)
         {
             Dictionary<string, string> shares = new Dictionary<string, string>();
             ManagementScope scope = new ManagementScope("\\\\" + Environment.MachineName + "\\" + "root\\CIMV2", conn);
@@ -44,7 +40,7 @@ namespace ShareDig
             return shares;
         }
 
-        public List<string> Search(Dictionary<string,string> shares, string query)
+        public static List<string> Search(Dictionary<string,string> shares, string query)
         {
             List<string> files = new List<string>();
             foreach (var item in shares.Values)
